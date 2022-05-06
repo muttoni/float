@@ -15,19 +15,16 @@
     "deploy": "flow project deploy --network=testnet"
   },
   "devDependencies": {
-    "@microsoft/signalr": "github:muttoni/signalr",
     "@picocss/pico": "^1.4.4",
+    "@microsoft/signalr": "github:muttoni/signalr",
     "@onflow/fcl": "^1.0.0-alpha.2",
-    "@rollup/plugin-node-resolve": "^13.1.1",
     "@sveltejs/adapter-auto": "^1.0.0-next.40",
-    "@sveltejs/kit": "1.0.0-next.202",
+    "@sveltejs/kit": "^1.0.0-next.202",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.32",
     "canvas-confetti": "^1.5.1",
     "svelte": "^3.44.3",
-    "svelte-intersection-observer": "^0.10.0"
-  },
-  "type": "module",
-  "dependencies": {
+    "svelte-intersection-observer": "^0.10.0",
     "copy-to-clipboard": "^3.3.1"
-  }
+  },
+  "type": "module"
 }
