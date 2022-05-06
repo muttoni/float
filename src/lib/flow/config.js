@@ -1,4 +1,4 @@
-import { config } from "@onflow/fcl";
+import { config } from "@onflow/config";
 
 config({
   "app.detail.title": "FLOAT", // Shows user what dapp is trying to connect
