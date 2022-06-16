@@ -1,6 +1,25 @@
 <script>
   import { configureFCLAndLogin } from "$lib/flow/actions";
+  import * as fcl from "@onflow/fcl";
   import { walletModal } from "$lib/stores";
+  import { onMount } from 'svelte';
+	
+  let services = [];
+  export let _ = s => s.toLowerCase();
+
+  onMount(async () => {
+    try {
+      const response = await fcl.discovery.authn.snapshot()
+      if (response) {
+        services = response.results;
+      } else {
+        throw new Error("Error fetching services");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
 </script>
 
 <article>
@@ -13,23 +32,19 @@
     <h1>Choose your wallet</h1>
   </header>
   <div class="wallet">
-    <button id="blocto" on:click={() => configureFCLAndLogin("blocto")}>
-      <img src="/blocto-logo.jpg" alt="blocto logo" />
-      <span>Connect Blocto</span>
-    </button>
-  </div>
-  <div class="wallet">
     <button id="dapper" on:click={() => configureFCLAndLogin("dapper")}>
       <img src="/dapper-logo.png" alt="dapper logo" />
       <span>Connect Dapper</span>
     </button>
   </div>
-  <div class="wallet">
-    <button id="other" on:click={() => configureFCLAndLogin("other")}>
-      <img src="/lilico-logo.jpg" alt="lilico logo" />
-      <span>Connect Lilico</span>
-    </button>
-  </div>
+  {#each services as service}
+    <div class="wallet">
+      <button id={_(service.provider.name)} on:click={() => configureFCLAndLogin(_(service.provider.name), service)}>
+        <img src={`${_(service.provider.name)}-logo.jpg`} alt={`${_(service.provider.name)} logo`} />
+        <span>Connect {service.provider.name}</span>
+      </button>
+    </div>
+  {/each}
 </article>
 
 <style>
@@ -105,6 +120,10 @@
 
   #dapper {
     background-image: linear-gradient(135deg, #c471f5 -20%, #fa71cd 120%);
+  }
+
+  #lilico {
+    background-image: linear-gradient(135deg, #f5ba71 -20%, #ff7a62 120%);
   }
 
   #other {
