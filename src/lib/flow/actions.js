@@ -69,14 +69,14 @@ const configureFCL = (wallet) => {
       .put("discovery.wallet", import.meta.env.VITE_DAPPER_DISCOVERY)
       .put("discovery.wallet.method", "POP/RPC")
   }
-  else if (wallet === 'other') {
+  else {
     config()
       .put("discovery.wallet", import.meta.env.VITE_FCL_DISCOVERY)
       .put("discovery.wallet.method", "IFRAME/RPC")
   }
 }
 
-export const configureFCLAndLogin = async (wallet) => {
+export const configureFCLAndLogin = async (wallet, service) => {
   currentWallet.set(wallet);
   configureFCL(wallet);
   await fcl.authenticate();
